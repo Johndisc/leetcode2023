@@ -15,4 +15,13 @@ add_executable(leetcode2023 main.cpp global.h n1.h n49.h n128.h n283.h n11.h n15
         n226.h
         n101.h
         n207.h
-        n35.h)
+        n35.h
+        n10.h
+        n213.h
+        n328.h
+        sort.h
+        n310.h
+        n108.h
+        n199.h
+        n114.h
+        n105.h)
