@@ -9,32 +9,24 @@
 class Solution {
 public:
     int longestValidParentheses(string s) {
-        int balance = 0;
-        int len = 0;
-        int res = 0;
-        int begin = 0;
-        for (int i = 0; i < s.size(); ++i) {
-            if (s[i] == ')') {
-                balance--;
-                len++;
-                if (balance == 0)
-                    res = max(res, len - balance);
-                else if (balance > 0)
-                    res = max(res, i - begin - balance);
-            } else if (balance < 0) {
-                begin = i;
-                balance = 1;
-                len = 1;
-            } else {
-                if (balance == 0)
-                    begin = i;
-                balance++;
-                len++;
-            }
+		int res = 0;
+		vector<int> dp(s.size() + 2, 0);
+		dp[0] = 0;
+		dp[1] = 0;
+        for (int i = 1; i < s.size(); ++i) {
+            if (s[i] == '(')
+				dp[i + 1] = 0;
+			else {
+				if (s[i - 1] == '(')
+					dp[i + 1] = dp[i - 1] + 2;
+				else if (i - dp[i] - 1 >= 0 && s[i - dp[i] - 1] == '(')
+					dp[i + 1] = dp[i - dp[i] - 1] + dp[i] + 2;
+				else
+					dp[i + 1] = 0;
+				res = max(res, dp[i + 1]);
+			}
         }
-        if (balance > 0)
-            res = max(res, (int)s.size() - begin - balance);
-        return res;
+		return res;
     }
 };
 #endif //LEETCODE2023_N32_H
